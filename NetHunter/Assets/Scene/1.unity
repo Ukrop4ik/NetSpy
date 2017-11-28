@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 387908499}
   - component: {fileID: 387908500}
   - component: {fileID: 387908501}
+  - component: {fileID: 387908502}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -165,7 +166,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 20
   m_Depth: -1
@@ -206,8 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 006904cf8fe69fe40865db657ed073c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NodeCount: 25000
-  Shuffle: 0
+  NodeCount: 2000
+  Shuffle: 0.37
+  RandomPoz: {x: -2, y: 2}
   NODE: {fileID: 1924635151746358, guid: 35b763f0fbbff2f48b4d8cf7950a2a2e, type: 2}
 --- !u!114 &387908500
 MonoBehaviour:
@@ -232,6 +234,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentNode: {fileID: 0}
+--- !u!114 &387908502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 387908494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38db15f9b4a4a6a44bb34dcf980f35b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraZ: 70
 --- !u!1 &596412543
 GameObject:
   m_ObjectHideFlags: 0
