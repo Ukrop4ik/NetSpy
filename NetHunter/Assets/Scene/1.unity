@@ -207,10 +207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 006904cf8fe69fe40865db657ed073c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NodeCount: 2000
-  Shuffle: 0.37
-  RandomPoz: {x: -2, y: 2}
+  NodeCount: 800
+  Shuffle: 0.9
+  RandomPoz: {x: 1, y: 1}
   NODE: {fileID: 1924635151746358, guid: 35b763f0fbbff2f48b4d8cf7950a2a2e, type: 2}
+  _visualize: []
 --- !u!114 &387908500
 MonoBehaviour:
   m_ObjectHideFlags: 0

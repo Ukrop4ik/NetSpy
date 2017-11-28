@@ -18,6 +18,8 @@ public class MapCreator : MonoBehaviour {
     private static MapCreator instance;
     public static MapCreator Instance() { return instance; }
 
+    public List<GameObject> _visualize = new List<GameObject>();
+    int index = 0;
     private void Start()
     {
         instance = this;
@@ -37,6 +39,7 @@ public class MapCreator : MonoBehaviour {
             {
 
                 GameObject no = Instantiate(NODE);
+                _visualize.Add(no);
                 GameNode game_node = no.GetComponent<GameNode>();
                 game_node.x = node.x;
                 game_node.y = node.y;
@@ -104,5 +107,18 @@ public class MapCreator : MonoBehaviour {
         
         
         }
+
+        StartCoroutine(SetVisual());
     } 
+
+    public IEnumerator SetVisual()
+    {
+        while(index < _visualize.Count)
+        {
+            _visualize[index].GetComponent<Renderer>().enabled = true;
+            yield return new WaitForSeconds(0.02f);
+            index++;
+        }
+
+    }
 }

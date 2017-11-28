@@ -11,6 +11,8 @@ public class GameNode : MonoBehaviour {
         Cnow     
     }
 
+    public GameObject _linesRoot;
+
     private NodeStatus status;
 
     public NodeStatus Status
@@ -23,6 +25,14 @@ public class GameNode : MonoBehaviour {
         set
         {
             status = value;
+            if(status == NodeStatus.Uncnown)
+            {
+                _linesRoot.SetActive(false);
+            }
+            else
+            {
+                _linesRoot.SetActive(true);
+            }
             ChangeNodeStatus(status);
         }
     }
