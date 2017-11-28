@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 114745870142508014}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924635151746358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.74461, y: 48.79895, z: 26.874454}
+  m_LocalPosition: {x: 229.54402, y: -336.08752, z: 67.91214}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4131748249230360}
@@ -220,6 +220,10 @@ MonoBehaviour:
   - {fileID: 120522384802737280}
   - {fileID: 120422796520392220}
   - {fileID: 120280780155905756}
+  _mat:
+  - {fileID: 2100000, guid: 28aa63511b0778e47bf107376b2d682b, type: 2}
+  - {fileID: 2100000, guid: b8bc9d588a26a7041ba2af8a09fae937, type: 2}
+  - {fileID: 2100000, guid: 0111056594d2b92438d8d41774de06d8, type: 2}
   x: 0
   y: 0
   w: 0

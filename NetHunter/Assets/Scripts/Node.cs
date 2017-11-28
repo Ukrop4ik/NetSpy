@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
+
     public class Node
     {
 	public readonly int x;

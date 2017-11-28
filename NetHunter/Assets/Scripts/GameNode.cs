@@ -4,7 +4,33 @@ using UnityEngine;
 
 public class GameNode : MonoBehaviour {
 
+    public enum NodeStatus
+    {
+        Uncnown,
+        Current,
+        Cnow     
+    }
+
+    private NodeStatus status;
+
+    public NodeStatus Status
+    {
+        get
+        {
+            return status;
+        }
+
+        set
+        {
+            status = value;
+            ChangeNodeStatus(status);
+        }
+    }
+
     public List<LineRenderer> _lines = new List<LineRenderer>();
+
+    [SerializeField]
+    private List<Material> _mat = new List<Material>();
 
     public  int x;
     public  int y;
@@ -14,4 +40,21 @@ public class GameNode : MonoBehaviour {
     public GameNode parent;
     public  List<GameNode> junctions = new List<GameNode>();
     public int order;
+
+
+    public void ChangeNodeStatus(NodeStatus status)
+    {
+        switch(status)
+        {
+            case NodeStatus.Uncnown:
+                gameObject.GetComponent<Renderer>().material = _mat[0];
+                break;
+            case NodeStatus.Cnow:
+                gameObject.GetComponent<Renderer>().material = _mat[1];
+                break;
+            case NodeStatus.Current:
+                gameObject.GetComponent<Renderer>().material = _mat[2];
+                break;
+        }
+    }
 }

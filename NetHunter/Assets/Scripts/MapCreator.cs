@@ -10,9 +10,20 @@ public class MapCreator : MonoBehaviour {
     public int NodeCount;
     [Range(0,0.9f)]
     public float Shuffle;
+    public Vector2 RandomPoz;
     Map _map = new Map();
     [SerializeField]
     private GameObject NODE;
+
+    private static MapCreator instance;
+    public static MapCreator Instance() { return instance; }
+
+    private void Start()
+    {
+        instance = this;
+        CreateMap();
+    }
+
     [ContextMenu("Create")]
     public void CreateMap()
     {
@@ -24,14 +35,29 @@ public class MapCreator : MonoBehaviour {
         {
             foreach (var node in ynodes.Values)
             {
+
                 GameObject no = Instantiate(NODE);
                 GameNode game_node = no.GetComponent<GameNode>();
                 game_node.x = node.x;
                 game_node.y = node.y;
                 game_node.w = node.w;
                 GameNodes.Add(new Vector2Int(node.x, node.y), game_node);
-                no.transform.position = new Vector3(node.x * 10, node.y * 10, 0);
+
+                float random_pos = 0f;
+                random_pos = Random.Range(-1f, 5f);
+                float random_pos_z = 0f;
+                random_pos_z = Random.Range(-1f, 5f);
+                no.transform.position = new Vector3(node.x  * 10 + Random.Range(RandomPoz.x, RandomPoz.y), node.y * 10 + Random.Range(RandomPoz.x, RandomPoz.y),  0);
+
+
                 no.name = "X: " + node.x + " Y: " + node.y + " W: " + node.w;
+
+                if (node.x == 0 && node.y == 0)
+                {
+                    Game.Instance().SetCurrentNode(game_node);
+                }
+                else
+                    game_node.Status = GameNode.NodeStatus.Uncnown;
             }
         }
 
