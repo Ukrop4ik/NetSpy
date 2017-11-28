@@ -52,11 +52,15 @@ public class Game : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        instance = this;
+       
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

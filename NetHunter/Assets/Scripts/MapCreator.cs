@@ -108,7 +108,7 @@ public class MapCreator : MonoBehaviour {
         
         }
 
-        StartCoroutine(SetVisual());
+       // StartCoroutine(SetVisual());
     } 
 
     public IEnumerator SetVisual()

@@ -123,9 +123,9 @@ GameObject:
   - component: {fileID: 387908497}
   - component: {fileID: 387908496}
   - component: {fileID: 387908495}
+  - component: {fileID: 387908501}
   - component: {fileID: 387908499}
   - component: {fileID: 387908500}
-  - component: {fileID: 387908501}
   - component: {fileID: 387908502}
   m_Layer: 0
   m_Name: Main Camera
@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 006904cf8fe69fe40865db657ed073c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NodeCount: 800
-  Shuffle: 0.9
-  RandomPoz: {x: 1, y: 1}
+  NodeCount: 2000
+  Shuffle: 0
+  RandomPoz: {x: -2, y: 2}
   NODE: {fileID: 1924635151746358, guid: 35b763f0fbbff2f48b4d8cf7950a2a2e, type: 2}
   _visualize: []
 --- !u!114 &387908500
