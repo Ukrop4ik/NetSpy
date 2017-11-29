@@ -10,10 +10,13 @@ public class MapCreator : MonoBehaviour {
     public int NodeCount;
     [Range(0,0.9f)]
     public float Shuffle;
+    [Range(0, 0.9f)]
+    public float JoinChance;
     public Vector2 RandomPoz;
     Map _map = new Map();
     [SerializeField]
     private GameObject NODE;
+
 
     private static MapCreator instance;
     public static MapCreator Instance() { return instance; }
@@ -103,13 +106,42 @@ public class MapCreator : MonoBehaviour {
                     GameNodes.TryGetValue(new Vector2Int(node.parent.x, node.parent.y), out _parant_node);
                     _final_node.parent = _parant_node;
                 }
+
             }
         
         
         }
 
+        CorrectJunctions(JoinChance);
+
        // StartCoroutine(SetVisual());
-    } 
+    }
+
+
+    public void CorrectJunctions(float join_chance)
+    {
+
+        foreach (GameNode node in GameNodes.Values)
+        {
+            int _lineindx = 0;
+            _lineindx += node.junctions.Count;
+
+            if (Random.Range(0f, 1f) < join_chance)
+                foreach (GameNode _neiNode in node.neighbors)
+                {
+                    if (node.junctions.Contains(_neiNode) || node.parent == _neiNode) continue;
+                    _lineindx++;
+                    node.junctions.Add(_neiNode);
+                    _neiNode.junctions.Add(node);
+
+                    LineRenderer _line = node._lines[_lineindx - 1];
+                    _line.SetPosition(0, node.transform.position);
+                    _line.SetPosition(1, _neiNode.transform.position);
+                }
+        
+        }
+
+    }
 
     public IEnumerator SetVisual()
     {

@@ -27,7 +27,7 @@ public class GameNode : MonoBehaviour {
             status = value;
             if(status == NodeStatus.Uncnown)
             {
-                _linesRoot.SetActive(false);
+               // _linesRoot.SetActive(false);
             }
             else
             {
