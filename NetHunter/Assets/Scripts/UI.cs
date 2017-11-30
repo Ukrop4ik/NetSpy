@@ -8,7 +8,8 @@ public class UI : MonoBehaviour {
 
     private static UI instance;
     public static UI Instance() { return instance; }
-
+    [SerializeField]
+    private GameObject _menu;
     [SerializeField]
     private Text datatext;
     [SerializeField]
@@ -49,6 +50,11 @@ public class UI : MonoBehaviour {
     public void CreateNewWeb()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void OpenPanel(GameObject panel)
+    {
+        panel.SetActive(!panel.activeInHierarchy);
     }
 
 }
