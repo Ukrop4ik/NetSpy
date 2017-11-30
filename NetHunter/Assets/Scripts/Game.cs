@@ -21,6 +21,7 @@ public class Game : MonoBehaviour {
     public void JumpToNode(GameNode node)
     {
         if (!CheckNodeToJump(node)) return;
+             SetCurrentNode(node);
 
     }
 
@@ -28,20 +29,27 @@ public class Game : MonoBehaviour {
     {
         bool check = false;
 
-        if (node == _currentNode.parent)
+        if (CheckNodeState(node))
         {
-            check = true;
-        }
-        else
-            foreach (GameNode _node in _currentNode.junctions)
+            if (node == _currentNode.parent)
             {
-                if (_node == node)
-                {
-                    check = true;
-                }
+                check = true;
             }
-    
+            else
+                foreach (GameNode _node in _currentNode.junctions)
+                {
+                    if (_node == node)
+                    {
+                        check = true;
+                    }
+                }
+        }
         return check;
+    }
+
+    public bool CheckNodeState(GameNode node)
+    {
+        return node.State == GameNode.NodeState.Open;
     }
 
     public GameNode GetCurrentNode()

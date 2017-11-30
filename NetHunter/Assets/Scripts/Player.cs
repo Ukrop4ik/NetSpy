@@ -6,6 +6,9 @@ public class Player : MonoBehaviour {
 
     [SerializeField]
     private int Health;
+    [SerializeField]
+    private int Damage;
+
     public int GetHealth()
     {
         return Health;
@@ -14,10 +17,19 @@ public class Player : MonoBehaviour {
     {
         Health += value;
     }
+    public int GetDamage()
+    {
+        return Damage;
+    }
+    public void SetDamage(int value)
+    {
+        Damage += value;
+    }
 
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
