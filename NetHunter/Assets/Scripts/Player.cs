@@ -8,6 +8,11 @@ public class Player : MonoBehaviour {
     private int Health;
     [SerializeField]
     private int Damage;
+    [SerializeField]
+    private int Data;
+
+    private static Player instance;
+    public static Player Instance() { return instance; }
 
     public int GetHealth()
     {
@@ -25,12 +30,21 @@ public class Player : MonoBehaviour {
     {
         Damage += value;
     }
+    public int GetData()
+    {
+        return Data;
+    }
+    public void SetData(int value)
+    {
+        Data += value;
+    }
 
 
 
     // Use this for initialization
-    void Start () {
-		
+    void Start ()
+    {
+        instance = this;
 	}
 	
 	// Update is called once per frame

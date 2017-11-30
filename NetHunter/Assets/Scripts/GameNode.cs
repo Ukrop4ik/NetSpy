@@ -14,11 +14,18 @@ public class GameNode : MonoBehaviour {
     {
         Close,
         Open
-    } 
+    }
+    public enum NodeType
+    {
+        Null,
+        Data
+    }
 
 
     [SerializeField]
     private int Health;
+    [SerializeField]
+    private int Damage;
 
     public GameObject _linesRoot;
 
@@ -55,6 +62,11 @@ public class GameNode : MonoBehaviour {
             {
                 state = NodeState.Open;
             }
+            else
+            {
+                SetHealth( -Player.Instance().GetDamage());
+                Player.Instance().SetHealth( -GetDamage());
+            }
 
             return state;
         }
@@ -88,6 +100,14 @@ public class GameNode : MonoBehaviour {
     public void SetHealth(int value)
     {
         Health += value;
+    }
+    public int GetDamage()
+    {
+        return Damage;
+    }
+    public void SetDamage(int value)
+    {
+        Damage += value;
     }
 
     public void SetNewLine(Vector3 coord1, Vector3 coord2)

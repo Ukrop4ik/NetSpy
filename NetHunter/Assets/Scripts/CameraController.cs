@@ -10,6 +10,14 @@ public class CameraController : MonoBehaviour {
     private Vector3 _newPoz;
     private float X;
     private float Y;
+    [SerializeField]
+    private Transform _cam;
+
+    private void Start()
+    {
+
+    }
+
     // Update is called once per frame
     void Update () {
 
@@ -17,13 +25,13 @@ public class CameraController : MonoBehaviour {
         if (Game.Instance().GetCurrentNode() != null)
             _newPoz = Game.Instance().GetCurrentNode().transform.position;
 
-            if (_newPoz != transform.position)
+            if (_newPoz != _cam.position)
             {
                 X = Mathf.Lerp(X, _newPoz.x, Time.deltaTime);
                 Y = Mathf.Lerp(Y, _newPoz.y, Time.deltaTime);
             }
 
-        transform.position = new Vector3(X, Y, _cameraZ);
+        _cam.position = new Vector3(X, Y, _cameraZ);
              
 		
 	}
