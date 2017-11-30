@@ -7,7 +7,24 @@ public class Game : MonoBehaviour {
     [SerializeField]
     private GameNode _currentNode;
 
+    [SerializeField]
+    private int alldatacount;
+
     private static Game instance;
+
+    public int Alldatacount
+    {
+        get
+        {
+            return alldatacount;
+        }
+
+        set
+        {
+            alldatacount = value;
+        }
+    }
+
     public static Game Instance() { return instance; }
 
     public void SetCurrentNode(GameNode node)
@@ -21,7 +38,20 @@ public class Game : MonoBehaviour {
     public void JumpToNode(GameNode node)
     {
         if (!CheckNodeToJump(node)) return;
-             SetCurrentNode(node);
+
+        SetCurrentNode(node);
+
+        MapCreator.Instance()._maxStep--;
+
+        if(node.Type == GameNode.NodeType.Data)
+        {
+            Player.Instance().SetData(node.Data);
+            print("Collect " + node.Data + " DATA ");
+            UI.Instance().CreateTextFrame(node.Data.ToString(), Camera.main.WorldToScreenPoint(node.transform.position));
+            node.Data = 0;
+            node.Type = GameNode.NodeType.Null;
+
+        }
 
     }
 

@@ -27,8 +27,8 @@ public class CameraController : MonoBehaviour {
 
             if (_newPoz != _cam.position)
             {
-                X = Mathf.Lerp(X, _newPoz.x, Time.deltaTime);
-                Y = Mathf.Lerp(Y, _newPoz.y, Time.deltaTime);
+                X = Mathf.Lerp(X, _newPoz.x, Time.deltaTime*2f);
+                Y = Mathf.Lerp(Y, _newPoz.y, Time.deltaTime*2f);
             }
 
         _cam.position = new Vector3(X, Y, _cameraZ);

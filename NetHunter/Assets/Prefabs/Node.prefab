@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 0
+  Damage: 0
   _linesRoot: {fileID: 1480911325414080}
   _lines:
   - {fileID: 120338691192663552}
@@ -348,6 +349,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 28aa63511b0778e47bf107376b2d682b, type: 2}
   - {fileID: 2100000, guid: b8bc9d588a26a7041ba2af8a09fae937, type: 2}
   - {fileID: 2100000, guid: 0111056594d2b92438d8d41774de06d8, type: 2}
+  Data: 0
   x: 0
   y: 0
   w: 0
@@ -982,5 +984,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.86
   m_Center: {x: 0, y: 0, z: 0}

@@ -31,6 +31,7 @@ public class GameNode : MonoBehaviour {
 
     private NodeStatus status;
     private NodeState state;
+    private NodeType type;
 
     public NodeStatus Status
     {
@@ -77,12 +78,24 @@ public class GameNode : MonoBehaviour {
         }
     }
 
+    public NodeType Type
+    {
+        get
+        {
+            return type;
+        }
+
+        set
+        {
+            type = value;
+        }
+    }
 
     public List<LineRenderer> _lines = new List<LineRenderer>();
 
     [SerializeField]
     private List<Material> _mat = new List<Material>();
-
+    public int Data;
     public  int x;
     public  int y;
     public  float w;

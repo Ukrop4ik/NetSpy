@@ -16,7 +16,9 @@ public class MapCreator : MonoBehaviour {
     Map _map = new Map();
     [SerializeField]
     private GameObject NODE;
-
+    public int _maxStep;
+    [SerializeField]
+    private float _dataNodePersent = 0.0f;
 
     private static MapCreator instance;
     public static MapCreator Instance() { return instance; }
@@ -32,6 +34,9 @@ public class MapCreator : MonoBehaviour {
     [ContextMenu("Create")]
     public void CreateMap()
     {
+        if(_maxStep == 0)
+             _maxStep = NodeCount * 3;
+
         _map.Place_random_nodes(NodeCount, Shuffle);
         _map.Calc_neighbors();
         _map.Trace_astar_wave();
@@ -112,7 +117,12 @@ public class MapCreator : MonoBehaviour {
         
         }
 
+
+
         CorrectJunctions(JoinChance);
+        StartCoroutine( CreateNodeType());
+
+
 
        // StartCoroutine(SetVisual());
     }
@@ -146,6 +156,43 @@ public class MapCreator : MonoBehaviour {
 
         }
 
+        _dataNodePersent = ((float)Game.Instance().Alldatacount / 100f) / (float)NodeCount * 100f;
+    }
+
+    public IEnumerator CreateNodeType()
+    {
+        int datacount = Game.Instance().Alldatacount;
+
+        while (datacount > 0)
+        {
+            datacount = SetDataToNodes(datacount);
+            print(datacount);
+            yield return null;
+        }
+      
+    }
+
+
+    private int SetDataToNodes(int datavalue)
+    {
+        int value = datavalue;
+
+        foreach (GameNode node in GameNodes.Values)
+        {
+            if (value <= 0) return value;
+
+            if (node.x == 0 && node.y == 0) continue;
+
+            if (Random.Range(0f, 1f) > 0.5f)
+            {
+                node.Type = GameNode.NodeType.Data;
+                node.Data = 100;
+                value -= node.Data;
+            }
+
+        }
+
+        return value;
     }
 
     public IEnumerator SetVisual()
