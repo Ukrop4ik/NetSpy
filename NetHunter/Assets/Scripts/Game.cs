@@ -12,6 +12,8 @@ public class Game : MonoBehaviour {
 
     public void SetCurrentNode(GameNode node)
     {
+        if(_currentNode)
+         _currentNode.Status = GameNode.NodeStatus.Cnow;
         _currentNode = node;
         node.Status = GameNode.NodeStatus.Current;
     }
@@ -20,9 +22,6 @@ public class Game : MonoBehaviour {
     {
         if (!CheckNodeToJump(node)) return;
 
-        _currentNode.Status = GameNode.NodeStatus.Cnow;
-        _currentNode = node;
-        _currentNode.Status = GameNode.NodeStatus.Current;
     }
 
     public bool CheckNodeToJump(GameNode node)

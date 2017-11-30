@@ -74,7 +74,7 @@ public class MapCreator : MonoBehaviour {
                 GameNode _final_node = null;
                 GameNodes.TryGetValue(new Vector2Int(node.x, node.y), out _final_node);
 
-                int _lineRenderCount = 0;
+                //int _lineRenderCount = 0;
 
                 if (_final_node == null) continue;
 
@@ -94,10 +94,10 @@ public class MapCreator : MonoBehaviour {
                         GameNodes.TryGetValue(new Vector2Int(n.x, n.y), out _junctions_node);
                         _final_node.junctions.Add(_junctions_node);
 
-                        LineRenderer _line = _final_node._lines[_lineRenderCount];
-                        _line.SetPosition(0, _final_node.transform.position);
-                        _line.SetPosition(1, _junctions_node.transform.position);
-                        _lineRenderCount++;
+                        //LineRenderer _line = _final_node._lines[_lineRenderCount];
+                        //_line.SetPosition(0, _final_node.transform.position);
+                        //_line.SetPosition(1, _junctions_node.transform.position);
+                        //_lineRenderCount++;
                     }
 
                 if (node.parent != null)
@@ -123,22 +123,27 @@ public class MapCreator : MonoBehaviour {
 
         foreach (GameNode node in GameNodes.Values)
         {
-            int _lineindx = 0;
-            _lineindx += node.junctions.Count;
 
             if (Random.Range(0f, 1f) < join_chance)
+            {
                 foreach (GameNode _neiNode in node.neighbors)
                 {
                     if (node.junctions.Contains(_neiNode) || node.parent == _neiNode) continue;
-                    _lineindx++;
                     node.junctions.Add(_neiNode);
                     _neiNode.junctions.Add(node);
 
-                    LineRenderer _line = node._lines[_lineindx - 1];
-                    _line.SetPosition(0, node.transform.position);
-                    _line.SetPosition(1, _neiNode.transform.position);
                 }
-        
+            }
+
+            if(node.junctions.Count > 0 )
+            foreach(GameNode juncnode in node.junctions)
+            {
+                node.SetNewLine(node.transform.position, juncnode.transform.position);
+            }
+
+            if(node.parent != null)
+            node.SetNewLine(node.transform.position, node.parent.transform.position);
+
         }
 
     }
