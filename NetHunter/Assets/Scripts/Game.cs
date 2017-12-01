@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
+    public enum SelectedGameLooseType
+    {
+        Step,
+        Clock
+    }
+
+    public SelectedGameLooseType looseType;
+
     [SerializeField]
     private GameNode _currentNode;
     public bool isStop = false;
     [SerializeField]
     private int alldatacount;
+    public int _Time;
 
     private static Game instance;
 
@@ -38,7 +47,23 @@ public class Game : MonoBehaviour {
     }
 
     public static Game Instance() { return instance; }
+    
+    private IEnumerator Clock()
+    {
+        while(_Time > 0)
+        {
+            if (!isStop)
+            {
+                _Time--;
 
+                if (_Time <= 0)
+                {
+                    Lose();
+                }
+            }
+            yield return new WaitForSeconds(1f);
+        }
+    }
 
     public void StartGame()
     {
@@ -50,6 +75,13 @@ public class Game : MonoBehaviour {
             case Profile.SelectedGameType.Survive:
                 MapCreator.Instance().ConfiguredMapCreator(3000, 0.5f, 3000, 15000);
                 break;
+        }
+
+        if(looseType == SelectedGameLooseType.Clock)
+        {
+            MapCreator.Instance()._maxStep = 0;
+            _Time = (int)(MapCreator.Instance().NodeCount * 1.5f);
+            StartCoroutine(Clock());
         }
 
     }
@@ -64,14 +96,16 @@ public class Game : MonoBehaviour {
 
     public void JumpToNode(GameNode node)
     {
-        if (!CheckNodeToJump(node)) return;
+        if (!CheckNodeToJump(node) || isStop) return;
 
         SetCurrentNode(node);
 
-        MapCreator.Instance()._maxStep--;
-
-        if (MapCreator.Instance()._maxStep <= 0)
-            Lose();
+        if (looseType == SelectedGameLooseType.Step)
+        {
+            MapCreator.Instance()._maxStep--;
+            if (MapCreator.Instance()._maxStep <= 0)
+                Lose();
+        }
 
         if (node.Type == GameNode.NodeType.Data)
         {
@@ -125,6 +159,10 @@ public class Game : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        if (Profile.Instance().Level % 3 == 0)
+            looseType = SelectedGameLooseType.Clock;
+
         StartGame();
 	}
 

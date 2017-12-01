@@ -2541,7 +2541,7 @@ Prefab:
     - target: {fileID: 114924874836356248, guid: 335d3f7ec77df914990902cc33c5cd84,
         type: 2}
       propertyPath: RandomPoz.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114924874836356248, guid: 335d3f7ec77df914990902cc33c5cd84,
         type: 2}

@@ -34,8 +34,9 @@ public class UI : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-		
+    void Update ()
+    {
+        Game.Instance().isStop = _menu.activeInHierarchy;	
 	}
 
     public GameObject GetWinPanel()
@@ -54,7 +55,12 @@ public class UI : MonoBehaviour {
         {
             yield return new WaitForSeconds(0.1f);
             datatext.text = Player.Instance().GetData() + " / " + Game.Instance().Alldatacount;
-            steptext.text = "Step: " + MapCreator.Instance()._maxStep;
+
+            if (Game.Instance().looseType == Game.SelectedGameLooseType.Step && MapCreator.Instance()._maxStep > 0)
+                steptext.text = "Step: " + MapCreator.Instance()._maxStep;
+            if (Game.Instance().looseType == Game.SelectedGameLooseType.Clock)
+                steptext.text = "Time: " + Game.Instance()._Time;
+
         }
     }
 

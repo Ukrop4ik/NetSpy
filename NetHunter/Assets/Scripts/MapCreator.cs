@@ -47,7 +47,7 @@ public class MapCreator : MonoBehaviour {
             NodeCount = Profile.Instance().Level*5;
 
         if(_maxStep == 0)
-             _maxStep = (int)(NodeCount * 1.5);
+             _maxStep = (int)(NodeCount * 1.5 + 5);
 
         _map.Place_random_nodes(NodeCount, Shuffle);
         _map.Calc_neighbors();
@@ -211,12 +211,16 @@ public class MapCreator : MonoBehaviour {
             if (Random.Range(0f, 1f) < 0.2f)
             {
                 node.Type = GameNode.NodeType.Data;
-                if(value < 100 && value > 0)
+                int[] datam = new int[] { 10, 20, 30, 40, 50, 100 };
+
+                int datav = Random.Range(0, datam.Length);
+
+                if(value < datam[datav] && value > 0)
                 {
                      node.Data = value;
                 }
                 else
-                     node.Data = 100;
+                     node.Data = datam[datav];
 
                 value -= node.Data;
                // node.ChangeNodeType(GameNode.NodeType.Data);
