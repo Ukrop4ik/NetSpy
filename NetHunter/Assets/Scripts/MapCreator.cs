@@ -6,7 +6,7 @@ using System.Linq;
 public class MapCreator : MonoBehaviour {
 
     public Dictionary<Vector2Int, GameNode> GameNodes = new Dictionary<Vector2Int, GameNode>();
-
+    public bool isConfigured = false;
     public int NodeCount;
     [Range(0,0.9f)]
     public float Shuffle;
@@ -28,14 +28,26 @@ public class MapCreator : MonoBehaviour {
     private void Start()
     {
         instance = this;
+    }
+
+    public void ConfiguredMapCreator(int nodecount, float joinchance, int maxstep, int datacount)
+    {
+        isConfigured = true;
+        NodeCount = nodecount;
+        JoinChance = joinchance;
+        _maxStep = maxstep;
+        Game.Instance().Alldatacount = datacount;
         CreateMap();
     }
 
     [ContextMenu("Create")]
     public void CreateMap()
     {
+        if (NodeCount == 0)
+            NodeCount = Profile.Instance().Level*5;
+
         if(_maxStep == 0)
-             _maxStep = NodeCount * 3;
+             _maxStep = (int)(NodeCount * 1.5);
 
         _map.Place_random_nodes(NodeCount, Shuffle);
         _map.Calc_neighbors();
@@ -58,7 +70,7 @@ public class MapCreator : MonoBehaviour {
                 random_pos = Random.Range(-1f, 5f);
                 float random_pos_z = 0f;
                 random_pos_z = Random.Range(-1f, 5f);
-                no.transform.position = new Vector3(node.x  * 10 + Random.Range(RandomPoz.x, RandomPoz.y), node.y * 10 + Random.Range(RandomPoz.x, RandomPoz.y),  0);
+                no.transform.position = new Vector3(node.x  * 5 + Random.Range(RandomPoz.x, RandomPoz.y), node.y * 5 + Random.Range(RandomPoz.x, RandomPoz.y),  0);
 
 
                 no.name = "X: " + node.x + " Y: " + node.y + " W: " + node.w;
@@ -117,7 +129,8 @@ public class MapCreator : MonoBehaviour {
         
         }
 
-
+        if (Game.Instance().Alldatacount == 0)
+            Game.Instance().Alldatacount = NodeCount * 10;
 
         CorrectJunctions(JoinChance);
         StartCoroutine( CreateNodeType());
@@ -177,22 +190,44 @@ public class MapCreator : MonoBehaviour {
     {
         int value = datavalue;
 
-        foreach (GameNode node in GameNodes.Values)
+        List<GameNode> l = new List<GameNode>();
+        l.AddRange(GameNodes.Values);
+
+        for (int i = l.Count - 1; i >= 1; i--)
+{
+            int j = Random.Range(0, i + 1);
+            var temp = l[j];
+            l[j] = l[i];
+            l[i] = temp;
+        }
+
+        foreach (GameNode node in l)
         {
             if (value <= 0) return value;
 
             if (node.x == 0 && node.y == 0) continue;
+            if (node.Type == GameNode.NodeType.Data) continue;
 
-            if (Random.Range(0f, 1f) > 0.5f)
+            if (Random.Range(0f, 1f) < 0.2f)
             {
                 node.Type = GameNode.NodeType.Data;
-                node.Data = 100;
+                if(value < 100 && value > 0)
+                {
+                     node.Data = value;
+                }
+                else
+                     node.Data = 100;
+
                 value -= node.Data;
+               // node.ChangeNodeType(GameNode.NodeType.Data);
+                break;
             }
 
         }
 
+
         return value;
+
     }
 
     public IEnumerator SetVisual()

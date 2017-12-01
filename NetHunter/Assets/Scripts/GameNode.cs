@@ -151,4 +151,17 @@ public class GameNode : MonoBehaviour {
                 break;
         }
     }
+    public void ChangeNodeType(NodeType type)
+    {
+        switch (type)
+        {
+            case NodeType.Data:
+                gameObject.GetComponent<Renderer>().material = _mat[3];
+                break;
+            case NodeType.Null:
+                gameObject.GetComponent<Renderer>().material = _mat[0];
+                break;
+          
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,10 @@ public class UI : MonoBehaviour {
     [SerializeField]
     private GameObject _menu;
     [SerializeField]
+    private GameObject _menu_win;
+    [SerializeField]
+    private GameObject _menu_lose;
+    [SerializeField]
     private Text datatext;
     [SerializeField]
     private Text steptext;
@@ -22,12 +27,26 @@ public class UI : MonoBehaviour {
         instance = this;
         StartCoroutine(UpdateUI());
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    public GameObject GetLosePanel()
+    {
+        return _menu_lose;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
+    public GameObject GetWinPanel()
+    {
+        return _menu_win;
+    }
+
+    public void LoadScene(string id)
+    {
+        SceneManager.LoadScene(id);
+    }
 
     private IEnumerator UpdateUI()
     {
@@ -49,7 +68,7 @@ public class UI : MonoBehaviour {
 
     public void CreateNewWeb()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 
     public void OpenPanel(GameObject panel)
